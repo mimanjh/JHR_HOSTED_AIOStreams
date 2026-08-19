@@ -1,0 +1,24 @@
+# Local secrets. Track templates only.
+.env
+.env.*
+!.env.example
+secrets/*
+!secrets/*.example
+
+# Persistent runtime data
+data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Local backups, logs, and temporary files
+backups/
+*.log
+*.bak
+*.tmp
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

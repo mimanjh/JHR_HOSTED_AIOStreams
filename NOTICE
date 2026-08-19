@@ -1,0 +1,16 @@
+JHR Hosted AIOStreams deployment template
+
+Copyright (C) 2026 mimanjh and contributors
+
+This repository provides independent deployment tooling for AIOStreams. It is
+not affiliated with or endorsed by Viren070, AIOStreams, Cloudflare, Docker,
+Stremio, Nuvio, or any optional service provider.
+
+AIOStreams is maintained by Viren070 and contributors and is distributed under
+the GNU General Public License v3.0:
+
+https://github.com/Viren070/AIOStreams
+https://github.com/Viren070/AIOStreams/blob/main/LICENSE
+
+Cloudflare, Docker, Stremio, Nuvio, and other product names may be trademarks
+of their respective owners.

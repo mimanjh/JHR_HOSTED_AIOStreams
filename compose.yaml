@@ -1,0 +1,42 @@
+name: hosted-aiostreams
+
+services:
+  aiostreams:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AIOSTREAMS_BASE_IMAGE: ghcr.io/viren070/aiostreams:latest
+    image: hosted-aiostreams:local
+    restart: unless-stopped
+    mem_limit: 14g
+    ports:
+      # Keep the origin local-only. Remote access goes through cloudflared.
+      - "127.0.0.1:3000:3000"
+    env_file:
+      - .env
+    volumes:
+      # Persists the SQLite database, encrypted configs, templates, and cache.
+      - ./data:/app/data
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    mem_limit: 1g
+    command:
+      - tunnel
+      - --no-autoupdate
+      - --loglevel
+      - info
+      - run
+      - --token-file
+      - /run/secrets/cloudflare_tunnel_token
+    depends_on:
+      aiostreams:
+        condition: service_healthy
+    secrets:
+      - cloudflare_tunnel_token
+
+secrets:
+  cloudflare_tunnel_token:
+    file: ./secrets/cloudflare-tunnel-token.txt

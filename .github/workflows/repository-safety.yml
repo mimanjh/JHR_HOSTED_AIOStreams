@@ -1,0 +1,26 @@
+name: Repository safety
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Scan tracked files
+        shell: pwsh
+        run: ./scripts/check-repository-safety.ps1
+
+      - name: Create disposable local configuration
+        shell: pwsh
+        run: ./scripts/bootstrap.ps1 -BaseUrl https://aio.example.com
+
+      - name: Validate Docker Compose
+        run: docker compose config --quiet
